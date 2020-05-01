@@ -22,8 +22,6 @@ namespace Jump_Mod
         {
             MelonModLogger.Log("initial load");
             MelonModLogger.Log("<Controls>");
-            MelonModLogger.Log("Page Up -> increase jump");
-            MelonModLogger.Log("Page Down -> decrease jump");
 
         }
 
