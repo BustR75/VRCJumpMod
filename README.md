@@ -1,4 +1,4 @@
-##Requirements
+##Requirements\n
 [MelonLoader](https://github.com/HerpDerpinstine/MelonLoader)
 [Auto Installer](https://github.com/Slaynash/MelonLoaderAutoInstaller)
 ##Controls
