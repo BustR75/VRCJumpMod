@@ -1,13 +1,23 @@
-##Requirements\n
+## Requirements
+
 [MelonLoader](https://github.com/HerpDerpinstine/MelonLoader)
+
 [Auto Installer](https://github.com/Slaynash/MelonLoaderAutoInstaller)
-##Controls
-####Jump
+
+## Controls
+
+#### Jump
+
 PageUp Increase Jump Height
+
 PageDown Decrease Jump Height
-####Speed
+
+#### Speed
+
 UpArrow Increase Speed
+
 DownArrow Decrease Speed
+
 
 
 Built in Visual Studio 2019
