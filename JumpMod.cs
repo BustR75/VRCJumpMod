@@ -1,29 +1,22 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UnityEngine;
 using MelonLoader;
-using NET_SDK;
-using NET_SDK.Reflection;
-using NET_SDK.Harmony;
 using VRC;
-
+[assembly: MelonModInfo(typeof(Jump_Mod.JumpMod), "JumpMod", "1.0", "BustR75")]
+[assembly: MelonModGame("VRChat", "VRChat")]
 namespace Jump_Mod
 {
     public static class BuildInfo
     {
         public const string Name = "JumpMod"; // Name of the Mod.  (MUST BE SET)
-        public const string Author = null; // Author of the Mod.  (Set as null if none)
+        public const string Author = "BustR75"; // Author of the Mod.  (Set as null if none)
         public const string Company = null; // Company that made the Mod.  (Set as null if none)
-        public const string Version = "1.0.0"; // Version of the Mod.  (MUST BE SET)
-        public const string DownloadLink = null; // Download Link for the Mod.  (Set as null if none)
+        public const string Version = "1.0"; // Version of the Mod.  (MUST BE SET)
+        public const string DownloadLink = "https://github.com/BustR75/VRCJumpMod"; // Download Link for the Mod.  (Set as null if none)
     }
+
     public class JumpMod : MelonMod {
-        bool didInit = false;
         PlayerModComponentJump jump;
-        PlayerModComponentSpeed speed;
         Player localplayer = null;
         public override void OnApplicationStart()
         {
@@ -31,13 +24,7 @@ namespace Jump_Mod
             MelonModLogger.Log("<Controls>");
             MelonModLogger.Log("Page Up -> increase jump");
             MelonModLogger.Log("Page Down -> decrease jump");
-            MelonModLogger.Log("Up Arrow -> increase speed");
-            MelonModLogger.Log("Down Arrow -> decrease speed");
 
-        }
-        public override void OnLevelWasInitialized(int level)
-        {
-            didInit = false;
         }
 
         public override void OnLevelWasLoaded(int level)
@@ -45,67 +32,56 @@ namespace Jump_Mod
             localplayer = Player.prop_Player_0;
             try
             {
-                jump  = localplayer.gameObject.GetComponent<PlayerModComponentJump>( );
-                speed = localplayer.gameObject.GetComponent<PlayerModComponentSpeed>();
-                if (IsNullorEmpty(jump))
+                if (localplayer != null)
                 {
-                    jump = localplayer.gameObject.AddComponent<PlayerModComponentJump>();
-                }
-                if (IsNullorEmpty(speed))
-                {
-                    speed = localplayer.gameObject.AddComponent<PlayerModComponentSpeed>();
+                    jump = localplayer.gameObject.GetComponent<PlayerModComponentJump>();
+                    if (jump == null)
+                    {
+                        jump = localplayer.gameObject.AddComponent<PlayerModComponentJump>();
+                    }
                 }
             }
             catch (Exception e)
             {
-                MelonModLogger.LogError("A Error Has Occured In Initiation \n" + e.ToString());
+                MelonModLogger.LogError("A Error Has Occured In Initialization \n" + e.ToString());
             }
-        }
+        }   
 
         public override void OnUpdate()
         {
-            if (didInit) {
                 try
                 {
                     if (Input.GetKeyDown(KeyCode.PageUp))
+                    {
+                        CheckforNull();
                         jump.field_Single_0 += 1;
-                    if (Input.GetKeyDown(KeyCode.PageDown))
-                        jump.field_Single_0 -= 1;
-                    if (Input.GetKeyDown(KeyCode.UpArrow))
-                    {
-                        speed.field_Single_0 += 1;
-                        speed.field_Single_1 += 1;
-                        speed.field_Single_2 += 1;
-                        speed.field_Single_3 += 1;
-                        speed.field_Single_4 += 1;
-                        speed.field_Single_5 += 1;
+                        MelonModLogger.Log("Increased Jump to " + jump.field_Single_0);
                     }
-                    if (Input.GetKeyDown(KeyCode.DownArrow))
+                    if (Input.GetKeyDown(KeyCode.PageDown))
                     {
-                        speed.field_Single_0 -= 1;
-                        speed.field_Single_1 -= 1;
-                        speed.field_Single_2 -= 1;
-                        speed.field_Single_3 -= 1;
-                        speed.field_Single_4 -= 1;
-                        speed.field_Single_5 -= 1;
+                        CheckforNull();
+                        jump.field_Single_0 -= 1;
+                        MelonModLogger.Log("Decreased Jump to " + jump.field_Single_0);
                     }
                 }
                 catch (Exception e)
                 {
                     MelonModLogger.LogError("A Error Has Occured On Update \n" + e.ToString());
                 }
-            }
-                
+            
+               
         }
-
-        public bool IsNullorEmpty<T>(T val)
+        private void CheckforNull()
         {
-            bool toret = false;
-            if (val.ToString() == "")
-                toret = true;
-            if (val == null)
-                toret = true;
-            return toret;
+            if (jump == null)
+            {
+                localplayer = Player.prop_Player_0;
+                jump = localplayer.gameObject.GetComponent<PlayerModComponentJump>();
+                if (jump == null)
+                {
+                    jump = localplayer.gameObject.AddComponent<PlayerModComponentJump>();
+                }
+            }
         }
     }
 }
