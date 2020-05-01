@@ -6,13 +6,13 @@
 
 ## Controls
 
-#### Jump
+### Jump
 
 PageUp Increase Jump Height
 
 PageDown Decrease Jump Height
 
-#### Speed
+### Speed
 
 UpArrow Increase Speed
 
