@@ -22,6 +22,8 @@ namespace Jump_Mod
         {
             MelonModLogger.Log("initial load");
             MelonModLogger.Log("<Controls>");
+			MelonModLogger.Log("PageUp -> Increase Jump");
+			MelonModLogger.Log("PageDown -> Decrease Jump");
 
         }
 
@@ -52,14 +54,15 @@ namespace Jump_Mod
                     if (Input.GetKeyDown(KeyCode.PageUp))
                     {
                         CheckforNull();
-                        jump.field_Single_0 += 1;
-                        MelonModLogger.Log("Increased Jump to " + jump.field_Single_0);
+                        jump.field_Private_Single_0 += 1;
+                        //jump.field_Single_0 += 1;
+                        MelonModLogger.Log("Increased Jump to " + jump.field_Private_Single_0);
                     }
                     if (Input.GetKeyDown(KeyCode.PageDown))
                     {
                         CheckforNull();
-                        jump.field_Single_0 -= 1;
-                        MelonModLogger.Log("Decreased Jump to " + jump.field_Single_0);
+                        jump.field_Private_Single_0 -= 1;
+                        MelonModLogger.Log("Decreased Jump to " + jump.field_Private_Single_0);
                     }
                 }
                 catch (Exception e)
